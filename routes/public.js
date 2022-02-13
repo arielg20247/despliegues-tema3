@@ -1,7 +1,7 @@
 const express = require('express');
 let router = express.Router();
 
-let pelicula = require("../models/pelicula");
+let pelicula = require(__dirname + "/../models/pelicula");
 
 router.get("/", (req, res) => {
   pelicula.find().then(() => {

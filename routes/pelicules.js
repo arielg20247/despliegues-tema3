@@ -1,10 +1,10 @@
 const express = require('express');
 const multer = require('multer')
-const autentificacio = require('../utils/auth')
+const autentificacio = require(__dirname +'/../utils/auth.js')
 let router = express.Router();
 
-let pelicula = require("../models/pelicula");
-let director = require("../models/director");
+let pelicula = require(__dirname +"/../models/pelicula.js");
+let director = require(__dirname + "/../models/director.js");
 
 
 let storage = multer.diskStorage({
@@ -49,24 +49,47 @@ router.get("/editar/:id",autentificacio, (req, res) => {
 });
 
 router.post("/", upload.single('imatge'),autentificacio, (req, res) => {
-  let addPelicula = new pelicula({
-    titol: req.body.titol,
-    sinopsi: req.body.sinopsi,
-    duracio: req.body.duracio,
-    genere: req.body.genere,
-    imatge: req.file.filename,
-    valoracio: req.body.valoracio,
-    plataforma: { nom: req.body.plataforma, data: req.body.data, abon: req.body.abon },
-    director: req.body.director,
-  });
-  addPelicula
-    .save()
-    .then(() => {
-      res.redirect(req.baseUrl);
-    })
-    .catch((error) => {
-      res.render("admin_error", { error: "Error en l'aplicació" });
+  if (req.file)
+  {
+    let addPelicula = new pelicula({
+      titol: req.body.titol,
+      sinopsi: req.body.sinopsi,
+      duracio: req.body.duracio,
+      genere: req.body.genere,
+      imatge: req.file.filename,
+      valoracio: req.body.valoracio,
+      plataforma: { nom: req.body.plataforma, data: req.body.data, abon: req.body.abon },
+      director: req.body.director,
     });
+    addPelicula
+      .save()
+      .then(() => {
+        res.redirect(req.baseUrl);
+      })
+      .catch((error) => {
+        res.render("admin_error", { error: "Error en l'aplicació" });
+      });
+  }
+  else{
+    let addPelicula = new pelicula({
+      titol: req.body.titol,
+      sinopsi: req.body.sinopsi,
+      duracio: req.body.duracio,
+      genere: req.body.genere,
+      valoracio: req.body.valoracio,
+      plataforma: { nom: req.body.plataforma, data: req.body.data, abon: req.body.abon },
+      director: req.body.director,
+    });
+    addPelicula
+      .save()
+      .then(() => {
+        res.redirect(req.baseUrl);
+      })
+      .catch((error) => {
+        res.render("admin_error", { error: "Error en l'aplicació" });
+      });
+  }
+ 
 });
 
 router.post("/:id", upload.single('imatge'), autentificacio,(req, res) => {

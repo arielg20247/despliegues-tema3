@@ -8,9 +8,9 @@ let app = express();
 
 mongoose.connect('mongodb://localhost:27017/filmes', { useNewUrlParser: true });
 
-const public = require('./routes/public');
-const pelicules = require('./routes/pelicules');
-const auth = require('./routes/auth');
+const public = require(__dirname + '/routes/public');
+const pelicules = require(__dirname + '/routes/pelicules');
+const auth = require(__dirname + '/routes/auth');
 
 
 app.use(session({

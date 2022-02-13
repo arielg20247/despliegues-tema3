@@ -2,7 +2,7 @@ const express = require('express');
 const CryptoJS = require("crypto-js");
 
 let router = express.Router();
-let usuari = require("../models/usuari");
+let usuari = require(__dirname + "/../models/usuari.js");
 
 let passwordToHash = (password) =>{
     return CryptoJS.SHA256(password).toString();
