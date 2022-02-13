@@ -1,0 +1,107 @@
+{% extends "admin_base.njk" %}
+{% block titol %} Afegir pelicula {% endblock%}
+{% block contingut %}
+
+<h1>Afegir pelicula</h1>
+<form method="POST" action="{% if pelicula %}/pelicules/{{ pelicula.id }}{% else %}/pelicules{% endif %}" enctype="multipart/form-data">
+    {% if pelicula %}
+    {% endif %}
+  <div class="form-group">
+    <label for="titol">Titol</label>
+    <input
+      type="text"
+      class="form-control"
+      name="titol"
+      value="{{ pelicula.titol }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="sinopsi">Sinopsi</label>
+    <textarea class="form-control" name="sinopsi" rows="3">{{
+      pelicula.sinopsi
+    }}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="duracio">Duració</label>
+    <input
+      type="number"
+      class="form-control"
+      name="duracio"
+      value="{{ pelicula.duracio }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="genere">Genere</label>
+    <select class="form-control" name="genere" value="{{ pelicula.genere }}">
+      <option value="comedia">comedia</option>
+      <option value="terror">terror</option>
+      <option value="drama">drama</option>
+      <option value="aventures">aventures</option>
+      <option value="altres">altres</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="imatge">Imatge</label>
+    <input
+      type="file"
+      class="form-control"
+      name="imatge"
+      value="{{ pelicula.imatge }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="valoracio">Valoracio</label>
+    <select
+      class="form-control"
+      name="valoracio"
+      value="{{ pelicula.valoracio }}"
+    >
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="director">Director</label>
+    <select class="form-control" name="director">
+      {% for director in directors %}
+      <option value="{{ director.id }}">{{ director.nom }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="plataforma">Plataforma</label>
+    <input
+      type="text"
+      class="form-control"
+      name="plataforma"
+      value="{{ pelicula.plataforma.nom }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="data">Data</label>
+    <input
+      type="date"
+      class="form-control"
+      name="data"
+      value="{{ pelicula.plataforma.data }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="abon">Abon</label>
+    <select class="form-control" name="abon">
+      <option value="0">No</option>
+      <option value="1">Si</option>
+    </select>
+  </div>
+  {% if pelicula %}
+  <button type="submit" class="btn btn-primary">Editar pelicula</button>
+</form>
+{% else %}
+<button type="submit" class="btn btn-primary">Afegir pelicula</button>
+{% endif %}
+</form>
+
+{% endblock%}

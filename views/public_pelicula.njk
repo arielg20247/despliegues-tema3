@@ -1,0 +1,31 @@
+{% extends "public_base.njk" %}
+
+{% block titol %}
+    {{pelicula.nom}}
+    {% endblock%}
+
+    {% block contingut %}
+        <h1>Informació de la pelicula</h1>
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item"> Titol {{ pelicula.titol }}
+                </li>
+                <li class="list-group-item"> Sipnosi : {{ pelicula.sinopsi}}
+                </li>
+                <li class="list-group-item"> Duració  : {{ pelicula.duracio}}
+                </li>
+                <li class="list-group-item"> Genere : {{ pelicula.genere }}
+                </li>
+                <li class="list-group-item"><p><img src="/public/uploads/{{ pelicula.imatge }}"/></p>
+                </li>
+                
+            </li>
+            <li class="list-group-item"> Valoració ⭐  : {{ pelicula.valoracio}}
+            </li>
+            <li class="list-group-item"> Plataforma : {{ pelicula.plataforma.nom}} <br> Data salida : {{pelicula.plataforma.data}} <br> Abono: {%if pelicula.plataforma.abon%} Si {% else %} No {% endif %}
+            </li>
+            <li class="list-group-item"> Director : {{ pelicula.director.nom}} <br> Naixement: {{pelicula.director.naixement}}
+            </li>
+        </ul>
+    </div>
+    {% endblock%}

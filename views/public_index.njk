@@ -1,0 +1,45 @@
+{% extends "public_base.njk" %}
+
+{% block titol %} Pelicules  {% endblock%}
+
+  {% block contingut %}
+    <h1>Buscar pelicula</h1>
+    <div>
+
+      <form method="GET" action="/buscar">
+        <div class="input-group mb-3">
+          <div class="input-group mb-3">
+            <input class="form-control" type="text" placeholder="Nom de la pelicula" name="titol">
+            <button type="submit" class="btn btn-primary input-group-text">Buscar</button>
+          </div>
+        </form>
+      </div>
+
+      {% if pelicules %}
+        <div id="eventsContainer" class="mb-4 mt-4 row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+          <div>
+            {% for pelicula in pelicules %}
+             <div class="col">
+                <div class="card shadow">
+                  <img class="card-img-top" src="/public/uploads/{{pelicula.imatge}}">
+                  <div class="card-body">
+                    <h4 class="card-title">{{pelicula.titol}}</h4>
+                     <div>
+                  <form action="pelicula/{{ pelicula.id }}" method="get">
+                    <button type="submit" class="btn btn-primary">  Details </button>
+                    </form>
+                    </div>
+                  </div>
+                  <div class="card-footer text-muted row m-0">
+                    <div class="col">{{pelicula.valoracio}}⭐</div>
+                  </div>
+                </div>
+              </div>
+                 </div>
+            {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+
+    {% endblock%}
